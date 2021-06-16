@@ -1,0 +1,46 @@
+server:
+  context-path: /demo-springboot-dubbo
+  port: 9002
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  application:
+    name: demoSpringbootDubboPerm
+  datasource:
+    url: jdbc:mysql://localhost:3306/test_spring?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+    username: root
+    password: 
+
+logging:
+  level:
+    com.gugusong.sqlmapper.db: debug  
+
+demo:
+  service:
+    version: 1.0.0
+nacos: 
+  server-address: 192.168.1.4
+  port: 8848
+#nacos.username=nacos
+#nacos.password=nacos
+
+dubbo:
+  application:
+    id: dubboPermApplicationBean
+    name: dubbo-perm-demo-application
+  module:
+    id: dubboPermModuleBean
+    name: dubbo-perm-demo-module
+  scan: 
+    # Base packages to scan Dubbo Component: @org.apache.dubbo.config.annotation.Service
+    base-packages: demo.springboot.dubbo.perm.service
+  # Dubbo Protocol
+  protocol:
+    name: dubbo
+    port: 20901
+  registry:
+  # nacos://${nacos.server-address}:${nacos.port}/?username=${nacos.username}&password=${nacos.password}
+    address: nacos://${nacos.server-address}:${nacos.port}/
+  service:
+    # DemoService version
+    version: 1.0.0
